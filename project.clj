@@ -1,0 +1,6 @@
+(defproject org.duct-framework/database.datalog.datahike "0.1.0-SNAPSHOT"
+  :description "Integrant methods for Datahike"
+  :url "https://github.com/duct-framework/database.datalog.datahike"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.12.5"]])
