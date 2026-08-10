@@ -19,3 +19,20 @@
     (ig/halt-key! :duct.database.datalog/datahike conn)
     (is (thrown-with-msg? clojure.lang.ExceptionInfo
                           #"Connection has been released\." @conn))))
+
+(deftest init-suspend-resume-test
+  (let [config {:backend :memory, :id (random-uuid)}
+        conn   (ig/init-key :duct.database.datalog/datahike config)]
+    (ig/suspend-key! :duct.database.datalog/datahike conn)
+    (let [new-conn (ig/resume-key :duct.database.datalog/datahike
+                                  config config conn)]
+      (is (identical? new-conn conn))
+      (ig/suspend-key! :duct.database.datalog/datahike new-conn)
+      (let [new-config {:backend :memory, :id (random-uuid)}
+            newer-conn (ig/resume-key :duct.database.datalog/datahike
+                                      new-config config new-conn)]
+        (is (not (identical? newer-conn new-conn)))
+        (is (dcore/conn? newer-conn))
+        (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                              #"Connection has been released\." @new-conn))
+        (ig/halt-key! :duct.database.datalog/datahike newer-conn)))))
