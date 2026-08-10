@@ -6,6 +6,11 @@
             [duct.database.datalog.datahike]
             [integrant.core :as ig]))
 
+(deftest hierarchy-test
+  (ig/load-hierarchy)
+  (is (isa? :duct.database.datalog/datahike :duct.database/datalog))
+  (is (isa? :duct.database/datalog :duct/database)))
+
 (deftest datalog-protocol-test
   (let [conn (ig/init-key :duct.database.datalog/datahike
                           {:backend :memory, :id (random-uuid)})]

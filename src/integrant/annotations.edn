@@ -1,0 +1,7 @@
+{:duct.database.datalog/datahike
+ {:doc
+  "Create a [Datahike][1] connection. See the [Datahike configuration docs][2]
+  for an explanation of what options are available.
+  
+  [1]: https://datahike.io/
+  [2]: https://cljdoc.org/d/org.replikativ/datahike/0.8.1775/doc/getting-started/configuration"}}
