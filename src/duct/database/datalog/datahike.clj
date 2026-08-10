@@ -1,6 +1,16 @@
 (ns duct.database.datalog.datahike
   (:require [datahike.api :as d]
+            [duct.database.datalog :as datalog]
             [integrant.core :as ig]))
+
+(extend-protocol datalog/Connection
+  datahike.connector.Connection
+  (-db [conn] @conn)
+  (-transact! [conn tx-data] (d/transact conn tx-data)))
+
+(extend-protocol datalog/Database
+  datahike.db.DB
+  (-q [db query inputs] (apply d/q query db inputs)))
 
 (defmethod ig/init-key :duct.database.datalog/datahike [_ config]
   (when-not (d/database-exists? config)

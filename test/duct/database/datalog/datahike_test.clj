@@ -2,8 +2,22 @@
   (:require [clojure.test :refer [deftest is]]
             [datahike.api :as d]
             [datahike.core :as dcore]
+            [duct.database.datalog :as datalog]
             [duct.database.datalog.datahike]
             [integrant.core :as ig]))
+
+(deftest datalog-protocol-test
+  (let [conn (ig/init-key :duct.database.datalog/datahike
+                          {:backend :memory, :id (random-uuid)})]
+    (datalog/transact! conn [{:db/ident :test/name
+                              :db/valueType :db.type/string
+                              :db/cardinality :db.cardinality/one}
+                             {:test/name "Alice"}
+                             {:test/name "Bob"}])
+    (is (= #{["Alice"] ["Bob"]}
+           (datalog/q '[:find ?name :where [?e :test/name ?name]]
+                      (datalog/db conn))))
+    (d/release conn)))
 
 (deftest init-halt-test
   (let [conn (ig/init-key :duct.database.datalog/datahike

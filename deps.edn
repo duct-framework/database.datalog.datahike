@@ -1,3 +1,4 @@
 {:deps {org.clojure/clojure {:mvn/version "1.12.5"}
+        org.duct-framework/database.datalog {:mvn/version "0.2.1"}
         org.replikativ/datahike {:mvn/version "0.8.1775"}
         integrant/integrant {:mvn/version "1.0.1"}}}
