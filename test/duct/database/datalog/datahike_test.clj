@@ -13,7 +13,7 @@
 
 (deftest datalog-protocol-test
   (let [conn (ig/init-key :duct.database.datalog/datahike
-                          {:backend :memory, :id (random-uuid)})]
+                          {:store {:backend :memory, :id (random-uuid)}})]
     (datalog/transact! conn [{:db/ident :test/name
                               :db/valueType :db.type/string
                               :db/cardinality :db.cardinality/one}
@@ -26,7 +26,7 @@
 
 (deftest init-halt-test
   (let [conn (ig/init-key :duct.database.datalog/datahike
-                          {:backend :memory, :id (random-uuid)})]
+                          {:store {:backend :memory, :id (random-uuid)}})]
     (is (dcore/conn? conn))
     (d/transact conn [{:db/ident :test/name
                        :db/valueType :db.type/string
@@ -40,14 +40,14 @@
                           #"Connection has been released\." @conn))))
 
 (deftest init-suspend-resume-test
-  (let [config {:backend :memory, :id (random-uuid)}
+  (let [config {:store {:backend :memory, :id (random-uuid)}}
         conn   (ig/init-key :duct.database.datalog/datahike config)]
     (ig/suspend-key! :duct.database.datalog/datahike conn)
     (let [new-conn (ig/resume-key :duct.database.datalog/datahike
                                   config config conn)]
       (is (identical? new-conn conn))
       (ig/suspend-key! :duct.database.datalog/datahike new-conn)
-      (let [new-config {:backend :memory, :id (random-uuid)}
+      (let [new-config {:store {:backend :memory, :id (random-uuid)}}
             newer-conn (ig/resume-key :duct.database.datalog/datahike
                                       new-config config new-conn)]
         (is (not (identical? newer-conn new-conn)))
