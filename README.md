@@ -12,11 +12,11 @@ any Integrant application.
 
 Add the following dependency to your deps.edn file:
 
-    org.duct-framework/database.datalog.datahike {:mvn/version "0.1.0-SNAPSHOT"}
+    org.duct-framework/database.datalog.datahike {:mvn/version "0.1.0"}
 
 Or to your Leiningen project file:
 
-    [org.duct-framework/database.datalog.datahike "0.1.0-SNAPSHOT"]
+    [org.duct-framework/database.datalog.datahike "0.1.0"]
 
 ## Usage
 

@@ -1,4 +1,4 @@
-(defproject org.duct-framework/database.datalog.datahike "0.1.0-SNAPSHOT"
+(defproject org.duct-framework/database.datalog.datahike "0.1.0"
   :description "Integrant methods for Datahike"
   :url "https://github.com/duct-framework/database.datalog.datahike"
   :license {:name "Eclipse Public License"
