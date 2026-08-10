@@ -1,4 +1,4 @@
-# Duct database.datalog.datahike
+# Duct database.datalog.datahike [![Build Status](https://github.com/duct-framework/database.datalog.datahike/actions/workflows/test.yml/badge.svg)](https://github.com/duct-framework/database.datalog.datahike/actions/workflows/test.yml)
 
 [Integrant][] methods for connecting to a [Datahike][] database from
 the [Duct][] framework. These methods can also be used outside Duct in
